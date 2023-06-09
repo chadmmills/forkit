@@ -1,6 +1,16 @@
 name: forkit CI
 on: [push]
 jobs:
+  Type Check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout forkit repo
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm install tsc
+      - run: npx tsc
+
+
   Test:
     runs-on: ubuntu-latest
     steps:
