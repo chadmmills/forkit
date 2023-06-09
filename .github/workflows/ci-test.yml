@@ -7,10 +7,8 @@ jobs:
       - name: Checkout forkit repo
         uses: actions/checkout@v3
       - run: curl -fsSL https://bun.sh/install | bash
-        # BUN_INSTALL="/home/{USERNAME}/.bun"
-        # PATH="$BUN_INSTALL/bin:$PATH"
-      env: 
-        BUN_INSTALL: "/home/runner/.bun"
+        env: 
+          BUN_INSTALL: "/home/runner/.bun"
       - run: source /home/runner/.bashrc
       - run cat /home/runner/.bashrc
       - run: bun --help
