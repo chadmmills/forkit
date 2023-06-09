@@ -1,6 +1,8 @@
-import type { Router } from 'api:router'
+type Routable = {
+  find(req: Request): (() => Response) | undefined
+}
 
-export function makeFetch(router: Router) {
+export function makeFetch(router: Routable) {
   return (req: Request) => {
     const handler = router.find(req)
     if (handler) {
