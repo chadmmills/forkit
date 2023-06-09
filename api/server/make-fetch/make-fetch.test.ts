@@ -14,8 +14,6 @@ describe("makeFetch", () => {
   test("returns undefined if no route is found", () => {
     const router = { find: () => undefined }
 
-    expect(true).toBe(false)
-
     expect(
       makeFetch(router)(new Request("example.com")).status
     ).toBe(404)
