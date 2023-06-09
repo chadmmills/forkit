@@ -1,15 +1,17 @@
 import { type Serve } from "bun"
 
 import { makeFetch } from "./make-fetch"
+import { Router } from "../router"
 
-// const Router = new MakeRouter()
-const Router = {
-  find(_: Request) {
-    return () => new Response("Hello, World!", { status: 200 })
+const tree = {
+  lookup(path: string) {
+    return () => new Response(path)
   }
 }
 
-const fetch = makeFetch(Router)
+const router = new Router(tree)
+
+const fetch = makeFetch(router)
 
 export default {
   port: 3008,
