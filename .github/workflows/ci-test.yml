@@ -10,7 +10,7 @@ jobs:
         # BUN_INSTALL="/home/{USERNAME}/.bun"
         # PATH="$BUN_INSTALL/bin:$PATH"
       env: 
-        BUN_INSTALL: "/home/runner/.bun
+        BUN_INSTALL: "/home/runner/.bun"
       - run: source /home/runner/.bashrc
       - run cat /home/runner/.bashrc
       - run: bun --help
