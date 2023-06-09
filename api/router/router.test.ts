@@ -1,4 +1,4 @@
-import { describe, test, expect } from "api:test"
+import { describe, test, expect } from "bun:test"
 
 import { Router } from './';
 
@@ -8,6 +8,6 @@ describe('Router', () => {
     let router = new Router(tree)
     let req = new Request('http://localhost:8787');
 
-    expect(router.find(req)).toBeInstanceOf(Function);
+      expect(router.find(req)).toBeInstanceOf(Function);
   });
 })

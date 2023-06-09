@@ -1,5 +1,4 @@
-// TEST file
-import { describe, test, expect } from "api:test"
+import { describe, test, expect } from "bun:test"
 
 import { makeFetch } from './';
 
@@ -14,6 +13,8 @@ describe("makeFetch", () => {
 
   test("returns undefined if no route is found", () => {
     const router = { find: () => undefined }
+
+    expect(true).toBe(false)
 
     expect(
       makeFetch(router)(new Request("example.com")).status
