@@ -1,7 +1,7 @@
 name: forkit CI
 on: [push]
 jobs:
-  Type Check:
+  Type-Check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout forkit repo
