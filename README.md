@@ -10,3 +10,5 @@ bun run api/server/index.ts
 ```sh
 bun test
 ```
+![example workflow](https://github.com/chadmmills/forkit/actions/workflows/ci-test.yml/badge.svg)
+
