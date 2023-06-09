@@ -7,7 +7,7 @@ jobs:
       - name: Checkout forkit repo
         uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - run: npm install tsc
+      - run: npm install typescript
       - run: npx tsc
 
 
