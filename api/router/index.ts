@@ -1,3 +1,5 @@
+export { RouterTree } from "./tree.ts"
+
 type RouterableTree = {
   lookup(path: string): (() => Response) | undefined
 }

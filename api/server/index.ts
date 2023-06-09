@@ -1,13 +1,11 @@
 import { type Serve } from "bun"
 
 import { makeFetch } from "./make-fetch"
-import { Router } from "../router"
+import { Router, RouterTree } from "../router"
 
-const tree = {
-  lookup(path: string) {
-    return () => new Response(path)
-  }
-}
+const fileMap = new Map<string, () => Response>([ ["/", () => new Response("index") ] ])
+
+const tree = new RouterTree(fileMap)
 
 const router = new Router(tree)
 
