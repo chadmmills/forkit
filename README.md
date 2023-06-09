@@ -8,7 +8,7 @@ bun run api/server/index.ts
 ```
 ##### Test
 ```sh
-bun test
+bun test # or bun --watch test
 ```
 ![example workflow](https://github.com/chadmmills/forkit/actions/workflows/ci-test.yml/badge.svg)
 
