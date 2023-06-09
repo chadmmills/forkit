@@ -6,10 +6,10 @@ jobs:
     steps:
       - name: Checkout forkit repo
         uses: actions/checkout@v3
-      - run: curl -fsSL https://bun.sh/install | bash
-        env: 
-          BUN_INSTALL: "/home/runner/.bun"
-      - run: source /home/runner/.bashrc
-      - run: cat /home/runner/.bashrc
+      - id: setup
+        name: Setup
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
       - run: bun --help
 
