@@ -1,4 +1,5 @@
-type RouteHander = (args: { req: Request }) => Response
+type Params = Record<string, string>
+type RouteHander = (args: { req: Request, params: Params }) => Response
 
 export type RouteHandlerModule = {
   get?: RouteHander

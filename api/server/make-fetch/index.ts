@@ -1,4 +1,5 @@
 import type { RouteHandlerModule } from "../../router/route-handler.ts"
+import { getParamsFromPath } from "../../router/get-params-from-path.ts"
 
 type Route = {
   path: string
@@ -9,7 +10,11 @@ type Routable = {
   find(req: Request): Route | undefined
 }
 
-export function makeFetch(router: Routable) {
+type Config = {
+  getParams: (url: string, path: string) => Record<string, string>
+}
+
+export function makeFetch(router: Routable, config: Config = { getParams: getParamsFromPath }) {
   return (req: Request) => {
     const maybeRoute = router.find(req)
     if (maybeRoute) {
@@ -38,7 +43,9 @@ export function makeFetch(router: Routable) {
         return new Response(null, { status: 404 })
       }
 
-      return handlerFn({ req })
+      const params = config.getParams(new URL(req.url).pathname, maybeRoute.path)
+
+      return handlerFn({ req, params })
     }
 
     return new Response("Not found", { status: 404 })
