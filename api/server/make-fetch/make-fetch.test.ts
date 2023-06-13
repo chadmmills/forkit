@@ -15,9 +15,10 @@ describe("makeFetch", () => {
     const get = () => new Response("Hello, World!", { status: 200 })
     const router = { find() { return { path: "/hey", handler: { get } } } }
     const getParams = () => ({})
+    const makeResponse = () => new Response("Hello, World!", { status: 200 })
 
     expect(
-      makeFetch(router, { getParams })(new Request("http://example.com")).status
+      makeFetch(router, { getParams, makeResponse })(new Request("http://example.com")).status
     ).toBe(200)
   })
 })
