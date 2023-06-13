@@ -1,9 +1,14 @@
 import { type Serve } from "bun"
 
 import { makeFetch } from "./make-fetch"
-import { Router, RouterTree } from "../router"
+import { mapRouteHandlersToFilePaths, Router, RouterTree } from "../router"
+import { getFilesFromDirectory } from "../utils/get-files-from-directory"
 
-const fileMap = new Map<string, () => Response>([ ["/", () => new Response("index") ] ])
+const BASE_ROUTE_PATH = process.cwd() + "/api/routes"
+
+const fileMap = await mapRouteHandlersToFilePaths(
+  BASE_ROUTE_PATH,
+  getFilesFromDirectory(BASE_ROUTE_PATH))
 
 const tree = new RouterTree(fileMap)
 

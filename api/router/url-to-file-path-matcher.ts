@@ -14,7 +14,11 @@ export function urlPathToFilePathMatcher(urlPath: string, filePath: string): boo
       continue;
     }
 
-    if (filePathPart.startsWith(':')) {
+    if ((urlPathPart + ".ts") === filePathPart) {
+      continue;
+    }
+
+    if (filePathPart.startsWith('$')) {
       continue;
     }
 

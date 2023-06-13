@@ -20,7 +20,8 @@ describe("makeFetch", () => {
   })
 
   test("returns a route from Router", () => {
-    const router = { find() { return () => new Response("Hello, World!", { status: 200 }) } }
+    const get = () => new Response("Hello, World!", { status: 200 })
+    const router = { find() { return { get } } }
 
     expect(
       makeFetch(router)(new Request("example.com")).status

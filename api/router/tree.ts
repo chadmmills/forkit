@@ -1,22 +1,23 @@
 import { urlPathToFilePathMatcher } from "./url-to-file-path-matcher.ts"
 
-type HandlerMap = Map<string, () => Response>;
+type HandlerMap<T> = Map<string, T>;
 type PathMatcher = (urlPath: string, filePath: string) => boolean;
 
 type RouterTreeOptions = {
   pathMatcher: PathMatcher;
 }
 
-export class RouterTree {
-  handlerMap: HandlerMap;
+export class RouterTree<T> {
+  handlerMap: HandlerMap<T>;
   pathMatcher: PathMatcher;
 
-  constructor(handlerMap: HandlerMap, options: RouterTreeOptions = { pathMatcher: urlPathToFilePathMatcher }) {
+  constructor(handlerMap: HandlerMap<T>, options: RouterTreeOptions = { pathMatcher: urlPathToFilePathMatcher }) {
     this.handlerMap = handlerMap;
     this.pathMatcher = options.pathMatcher;
   }
 
   lookup(urlPath: string) {
+    console.log("looking up urlPath", urlPath)
     for (const [filePath, handler] of this.handlerMap) {
       if (this.pathMatcher(urlPath, filePath)) {
         return handler;

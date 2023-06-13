@@ -1,13 +1,14 @@
 export { RouterTree } from "./tree.ts"
+export { mapRouteHandlersToFilePaths } from "./map-route-handlers-to-file-paths.ts"
 
-type RouterableTree = {
-  lookup(path: string): (() => Response) | undefined
+type RouterableTree<T> = {
+  lookup(path: string): T | undefined
 }
 
-export class Router {
-  routerTree: RouterableTree;
+export class Router<T> {
+  routerTree: RouterableTree<T>;
 
-  constructor(routerTree: RouterableTree) {
+  constructor(routerTree: RouterableTree<T>) {
     this.routerTree = routerTree;
   }
 
