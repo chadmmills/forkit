@@ -17,10 +17,9 @@ export class RouterTree<T> {
   }
 
   lookup(urlPath: string) {
-    console.log("looking up urlPath", urlPath)
     for (const [filePath, handler] of this.handlerMap) {
       if (this.pathMatcher(urlPath, filePath)) {
-        return handler;
+        return { path: filePath, handler };
       }
     }
   }

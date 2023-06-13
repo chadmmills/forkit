@@ -1,14 +1,20 @@
 import type { RouteHandlerModule } from "../../router/route-handler.ts"
 
+type Route = {
+  path: string
+  handler: RouteHandlerModule
+}
+
 type Routable = {
-  find(req: Request): RouteHandlerModule | undefined
+  find(req: Request): Route | undefined
 }
 
 export function makeFetch(router: Routable) {
   return (req: Request) => {
-    const handler = router.find(req)
-    if (handler) {
+    const maybeRoute = router.find(req)
+    if (maybeRoute) {
       // handler({ req, db, json() {}, setHeader() {}, setStatus() {} }) // or something
+      let handler = maybeRoute.handler
       let handlerFn
       switch (req.method) {
         case "GET":
