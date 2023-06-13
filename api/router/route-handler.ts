@@ -1,12 +1,13 @@
 type Params = Record<string, string>
-type RouteHander = (args: { req: Request, params: Params }) => Response
+export type RouteHandlerArgs = { req: Request, params: Params }
+type RouteHandler = (args: RouteHandlerArgs) => Response
 
 export type RouteHandlerModule = {
-  get?: RouteHander
-  post?: RouteHander
-  patch?: RouteHander
-  put?: RouteHander
-  delete?: RouteHander
+  get?: RouteHandler
+  post?: RouteHandler
+  patch?: RouteHandler
+  put?: RouteHandler
+  delete?: RouteHandler
 }
 
 export type RouteHandlerMap = Map<string, RouteHandlerModule>
