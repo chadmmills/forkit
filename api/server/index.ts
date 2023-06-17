@@ -2,7 +2,7 @@ import { type Serve } from "bun"
 
 import { makeFetch } from "./make-fetch"
 import { mapRouteHandlersToFilePaths, Router, RouterTree } from "../router"
-import { getFilesFromDirectory } from "../utils/get-files-from-directory"
+import { getFilesFromDirectory } from "../lib/get-files-from-directory"
 
 const BASE_ROUTE_PATH = process.cwd() + "/api/routes"
 
