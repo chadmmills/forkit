@@ -17,7 +17,7 @@ type Config = {
 }
 
 export function makeFetch(router: Routable, config: Config = { getParams: getParamsFromPath, makeResponse }) {
-  return (req: Request) => {
+  return async (req: Request) => {
     const maybeRoute = router.find(req)
     if (maybeRoute) {
       // handler({ req, db, json() {}, setHeader() {}, setStatus() {} }) // or something
@@ -47,7 +47,32 @@ export function makeFetch(router: Routable, config: Config = { getParams: getPar
 
       const params = config.getParams(new URL(req.url).pathname, maybeRoute.path)
 
-      return handlerFn({ req, params, respondWith: config.makeResponse })
+      let payload
+      const chunks: Uint8Array[] = [];
+      if (req.body) {
+        for await (const chunk of req.body) {
+          chunks.push(chunk);
+        }
+         const concatenatedChunks = new Uint8Array(
+          chunks.reduce((acc, chunk) => acc + chunk.length, 0)
+        );
+
+        let offset = 0;
+        for (const chunk of chunks) {
+          concatenatedChunks.set(chunk, offset);
+          offset += chunk.length;
+        }
+
+        const decoder = new TextDecoder();
+        const text = decoder.decode(concatenatedChunks);
+
+        payload = text
+        if (req.headers.get("Content-Type")?.includes("application/json")) {
+          payload = JSON.parse(text)
+        }
+      }
+
+      return handlerFn({ req, params, respondWith: config.makeResponse, payload })
     }
 
     return new Response("Not found", { status: 404 })

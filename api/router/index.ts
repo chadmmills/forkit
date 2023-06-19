@@ -1,7 +1,7 @@
 export { RouterTree } from "./tree.ts"
 export { mapRouteHandlersToFilePaths } from "./map-route-handlers-to-file-paths.ts"
 
-export type { RouteHandlerArgs, RespondWithArgs, RouteHandlerModule } from "./route-handler.ts"
+export type { RouteHandlerArgs, RespondWithArgs, RouteHandlerModule, RouteHandlerReturn } from "./route-handler.ts"
 
 type RouterableTree<T> = {
   lookup(path: string): T | undefined

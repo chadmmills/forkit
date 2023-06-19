@@ -1,9 +1,11 @@
-import type { RouteHandlerArgs } from "api:router"
+import { z } from "zod";
 
-export function get({ req, params, respondWith }: RouteHandlerArgs) {
+import type { RouteHandlerArgs, RouteHandlerReturn } from "api:router"
+
+export function get({ req, params, respondWith }: RouteHandlerArgs): RouteHandlerReturn {
   console.log("Params from ", req.url, params);
 
-  respondWith({
+  return respondWith({
     json: [
       { id: 1, name: "Chinese food" },
       { id: 2, name: "Pizza" },
@@ -12,4 +14,30 @@ export function get({ req, params, respondWith }: RouteHandlerArgs) {
       { id: 5, name: "Burgers" },
     ]
   })
+}
+
+export function post({ req, params, respondWith, payload }: RouteHandlerArgs): RouteHandlerReturn {
+  console.log("Params from ", req.url, params);
+  console.log("Payload from ", req.url, payload);
+  try {
+    let result = payloadParser(payload)
+    console.log("Parsed payload from ", req.url, result);
+  } catch (error) {
+    console.error(error)
+    return new Response("Bad Request", { status: 400 })
+  }
+
+  return respondWith({
+    json: { id: 1, name: "Chinese food" }
+  })
+}
+
+const schema = z.object({
+  name: z.string().min(3).max(255),
+  description: z.string().min(3).max(255),
+})
+
+// used to parse the body of a request
+export const payloadParser = (raw: unknown, parser: typeof schema = schema ) => {
+  return parser.parse(raw)
 }
