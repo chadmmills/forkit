@@ -1,1 +1,1 @@
-export type ORM = any;
+export * from "./gen.ts";

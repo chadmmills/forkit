@@ -7,24 +7,21 @@ import {
   Router,
   RouterTree,
 } from "../router";
+import type { ORM } from "api:orm";
 import { getFilesFromDirectory } from "../lib/get-files-from-directory";
 
 const BASE_ROUTE_PATH = process.cwd() + "/api/routes";
-
-const ORM = {};
-
-type TORM = typeof ORM;
 
 const fileMap = await mapRouteHandlersToFilePaths(
   BASE_ROUTE_PATH,
   getFilesFromDirectory(BASE_ROUTE_PATH)
 );
 
-const tree = new RouterTree<RouteHandlerModule<TORM>>(fileMap);
+const tree = new RouterTree<RouteHandlerModule<ORM>>(fileMap);
 
 const router = new Router(tree);
 
-const fetch = makeFetch(router, ORM);
+const fetch = makeFetch(router, {});
 
 export default {
   port: 3008,
