@@ -10,7 +10,6 @@ jobs:
       - run: npm install typescript
       - run: npx tsc
 
-
   Test:
     runs-on: ubuntu-latest
     steps:
@@ -34,4 +33,3 @@ jobs:
         with:
           bun-version: latest
       - run: bun x prettier --check .
-

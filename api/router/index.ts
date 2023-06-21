@@ -1,11 +1,16 @@
-export { RouterTree } from "./tree.ts"
-export { mapRouteHandlersToFilePaths } from "./map-route-handlers-to-file-paths.ts"
+export { RouterTree } from "./tree.ts";
+export { mapRouteHandlersToFilePaths } from "./map-route-handlers-to-file-paths.ts";
 
-export type { RouteHandlerArgs, RespondWithArgs, RouteHandlerModule, RouteHandlerReturn } from "./route-handler.ts"
+export type {
+  RouteHandlerArgs,
+  RespondWithArgs,
+  RouteHandlerModule,
+  RouteHandlerReturn,
+} from "./route-handler.ts";
 
 type RouterableTree<T> = {
-  lookup(path: string): T | undefined
-}
+  lookup(path: string): T | undefined;
+};
 
 export class Router<T> {
   routerTree: RouterableTree<T>;
@@ -15,7 +20,6 @@ export class Router<T> {
   }
 
   find(req: Request) {
-    return this.routerTree.lookup(new URL(req.url).pathname)
+    return this.routerTree.lookup(new URL(req.url).pathname);
   }
 }
-

@@ -11,17 +11,20 @@ describe("getFilesFromDirectory()", () => {
   });
 
   test("should handle nested directories", () => {
-    let run = 0
+    let run = 0;
     const readFileFn = () => {
       if (run > 1) {
         return [{ path: "/folder-file.txt", isDirectory: false }];
       }
-      run++
-      return [{ path: "/folder", isDirectory: true }, { path: "/file.txt", isDirectory: false }];
-    }
+      run++;
+      return [
+        { path: "/folder", isDirectory: true },
+        { path: "/file.txt", isDirectory: false },
+      ];
+    };
 
     const files = getFilesFromDirectory("/User/some/path", readFileFn);
 
     expect(files).toEqual(["/folder", "/file.txt"]);
-  })
-})
+  });
+});

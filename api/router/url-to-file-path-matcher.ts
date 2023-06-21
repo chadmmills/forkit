@@ -1,6 +1,9 @@
-export function urlPathToFilePathMatcher(urlPath: string, filePath: string): boolean {
-  const urlPathParts = urlPath.split('/');
-  const filePathParts = filePath.split('/');
+export function urlPathToFilePathMatcher(
+  urlPath: string,
+  filePath: string
+): boolean {
+  const urlPathParts = urlPath.split("/");
+  const filePathParts = filePath.split("/");
 
   if (urlPathParts.length !== filePathParts.length) {
     return false;
@@ -14,15 +17,15 @@ export function urlPathToFilePathMatcher(urlPath: string, filePath: string): boo
       continue;
     }
 
-    if ((urlPathPart + ".ts") === filePathPart) {
+    if (urlPathPart + ".ts" === filePathPart) {
       continue;
     }
 
-    if (filePathPart.startsWith('$')) {
+    if (filePathPart.startsWith("$")) {
       continue;
     }
 
-    if (urlPathPart === "" && filePathPart.startsWith('index')) {
+    if (urlPathPart === "" && filePathPart.startsWith("index")) {
       continue;
     }
 
