@@ -7,7 +7,7 @@ describe("makeFetch", () => {
     const router = { find: () => undefined };
 
     expect(
-      (await makeFetch(router)(new Request("http://example.com"))).status
+      (await makeFetch(router, {})(new Request("http://example.com"))).status
     ).toBe(404);
   });
 

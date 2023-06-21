@@ -5,16 +5,16 @@ type RouteHandlerMapConfig = {
   validate: typeof validateRouteHandler;
 };
 
-function validateRouteHandler(
+function validateRouteHandler<T>(
   path: string,
   handler: unknown
-): RouteHandlerModule {
+): RouteHandlerModule<T> {
   if (!handler) {
     throw new Error(`${path} Route handler is undefined`);
   }
 
   if (typeof handler === "object") {
-    const handlerObject = handler as RouteHandlerModule;
+    const handlerObject = handler as RouteHandlerModule<T>;
     if (
       !handlerObject.get &&
       !handlerObject.post &&
@@ -33,15 +33,15 @@ function validateRouteHandler(
   throw new Error(`${path} Route handler is not valid`);
 }
 
-export async function mapRouteHandlersToFilePaths(
+export async function mapRouteHandlersToFilePaths<T>(
   basePath: string,
   paths: string[],
   config: RouteHandlerMapConfig = {
     importRouteModule: async (path: string) => await import(path),
     validate: validateRouteHandler,
   }
-): Promise<RouteHandlerMap> {
-  let fileMap = new Map<string, RouteHandlerModule>();
+): Promise<RouteHandlerMap<T>> {
+  let fileMap = new Map<string, RouteHandlerModule<T>>();
 
   await Promise.all(
     paths.map(async (path) => {

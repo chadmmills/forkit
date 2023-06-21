@@ -7,7 +7,7 @@ describe("mapRouteHandlersToFilePaths()", () => {
     let basePath = "/something/";
     let paths = ["/something/here.ts"];
     let importRouteModule = async () => ({ get: () => new Response("hello") });
-    let validate = (_: string, mod: unknown) => mod as RouteHandlerModule;
+    let validate = (_: string, mod: unknown) => mod as RouteHandlerModule<any>;
     let map = await mapRouteHandlersToFilePaths(basePath, paths, {
       importRouteModule,
       validate,

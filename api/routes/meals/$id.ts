@@ -1,4 +1,5 @@
 import { z } from "zod";
+type ORM = {}
 
 import type { RouteHandlerArgs, RouteHandlerReturn } from "api:router";
 
@@ -6,7 +7,7 @@ export function get({
   req,
   params,
   respondWith,
-}: RouteHandlerArgs): RouteHandlerReturn {
+}: RouteHandlerArgs<ORM>): RouteHandlerReturn {
   console.log("Params from ", req.url, params);
 
   return respondWith({
@@ -25,7 +26,7 @@ export function post({
   params,
   respondWith,
   payload,
-}: RouteHandlerArgs): RouteHandlerReturn {
+}: RouteHandlerArgs<ORM>): RouteHandlerReturn {
   console.log("Params from ", req.url, params);
   console.log("Payload from ", req.url, payload);
   try {

@@ -1,10 +1,11 @@
+import type { ORM } from "api:orm";
 import type { RespondWithArgs, RouteHandlerModule } from "api:router";
 import { getParamsFromPath } from "../../router/get-params-from-path.ts";
 import { makeResponse } from "../../router/make-response.ts";
 
 type Route = {
   path: string;
-  handler: RouteHandlerModule;
+  handler: RouteHandlerModule<ORM>;
 };
 
 type Routable = {
@@ -14,11 +15,12 @@ type Routable = {
 type Config = {
   getParams: (url: string, path: string) => Record<string, string>;
   makeResponse: (responseLike: RespondWithArgs) => Response;
-};
+}
 
 export function makeFetch(
   router: Routable,
-  config: Config = { getParams: getParamsFromPath, makeResponse }
+  orm: ORM,
+  config: Config = { getParams: getParamsFromPath, makeResponse } 
 ) {
   return async (req: Request) => {
     const maybeRoute = router.find(req);
@@ -80,6 +82,7 @@ export function makeFetch(
 
       return handlerFn({
         req,
+        orm,
         params,
         respondWith: config.makeResponse,
         payload,
