@@ -33,5 +33,5 @@ jobs:
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - run: bunx prettier --check .
+      - run: bun x prettier --check .
 
