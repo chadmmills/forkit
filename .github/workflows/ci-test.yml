@@ -23,3 +23,15 @@ jobs:
           bun-version: latest
       - run: bun test
 
+  Code-Formatter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout forkit repo
+        uses: actions/checkout@v3
+      - id: setup
+        name: Setup
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - run: bunx prettier --check .
+
