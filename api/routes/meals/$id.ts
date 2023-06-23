@@ -1,5 +1,5 @@
 import { z } from "zod";
-type ORM = {}
+type ORM = {};
 
 import type { RouteHandlerArgs, RouteHandlerReturn } from "api:router";
 

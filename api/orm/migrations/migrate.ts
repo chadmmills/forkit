@@ -1,3 +1,3 @@
 export function call() {
-  console.info("Called from migrate.ts")
+  console.info("Called from migrate.ts");
 }

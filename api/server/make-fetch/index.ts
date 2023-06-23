@@ -15,12 +15,12 @@ type Routable = {
 type Config = {
   getParams: (url: string, path: string) => Record<string, string>;
   makeResponse: (responseLike: RespondWithArgs) => Response;
-}
+};
 
 export function makeFetch(
   router: Routable,
   orm: ORM,
-  config: Config = { getParams: getParamsFromPath, makeResponse } 
+  config: Config = { getParams: getParamsFromPath, makeResponse }
 ) {
   return async (req: Request) => {
     const maybeRoute = router.find(req);
