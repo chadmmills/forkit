@@ -1,7 +1,18 @@
-import { DB } from "../db";
+type Tdb = {
+  query: (q: string) => {
+    run: () => void;
+  };
+};
 
-const forkitDb = new DB(process.env.NODE_ENV);
+export function call<T extends Tdb>(db: T) {
+  console.info("Setting up database...");
 
-export function call() {
-  console.info("Called from setup.ts");
+  const createQ = db.query(
+    `CREATE TABLE IF NOT EXISTS migrations (
+      id STRING PRIMARY KEY,
+      applied_at INTEGER NOT NULL
+    )`
+  );
+
+  createQ.run();
 }
