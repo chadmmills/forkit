@@ -10,7 +10,9 @@ import { DB } from "./db.ts";
 
 const db = new DB(process.env.NODE_ENV).instance();
 
-type CallFn = (db: Database) => void;
+type Args = string[];
+
+type CallFn = (inputs: Args, db: Database, config?: any) => void;
 
 const tasks: { [key: string]: CallFn } = {
   setup,
@@ -21,12 +23,13 @@ const tasks: { [key: string]: CallFn } = {
 };
 
 const task = process.argv[2].split("--task=")[1];
+const cliArgs = process.argv.slice(3);
 
 const callFn = tasks[task];
 
 if (callFn) {
   console.info("Running forkit CLI command...");
-  callFn(db);
+  callFn(cliArgs, db);
 } else {
   console.error("No CLI task found!");
 }
