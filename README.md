@@ -38,6 +38,7 @@ bun db:gen:migration
 ```
 
 View database schema
+
 ```sh
 bun db:schema
 ```
