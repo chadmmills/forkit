@@ -6,6 +6,6 @@ describe("db:setup", () => {
   test("should create a database", () => {
     const DB = { query: () => ({ run: () => {} }) };
 
-    expect(() => call(DB)).not.toThrow();
+    expect(() => call([], DB)).not.toThrow();
   });
 });

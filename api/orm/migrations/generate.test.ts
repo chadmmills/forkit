@@ -10,7 +10,7 @@ describe("generate migrations file", () => {
       fakeFile = "fake file";
     };
 
-    call({}, { writeFile });
+    call([], {}, { writeFile });
 
     expect(fakeFile).toBe("fake file");
   });
