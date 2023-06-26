@@ -3,7 +3,8 @@
     "db:setup": "bun run api/orm/cli.ts -- --task=setup",
     "db:migrate": "bun run api/orm/cli.ts -- --task=migrate",
     "db:gen:migration": "bun run api/orm/cli.ts --- --task=generate",
-    "db:gen:types": "bun run api/orm/cli.ts -- --task=generateTypes"
+    "db:gen:types": "bun run api/orm/cli.ts -- --task=generateTypes",
+    "db:schema": "bun run api/orm/cli.ts -- --task=schema"
   },
   "dependencies": {
     "typescript": "^5.0.4",

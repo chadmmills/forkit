@@ -37,6 +37,11 @@ Create new migration
 bun db:gen:migration
 ```
 
+View database schema
+```sh
+bun db:schema
+```
+
 Generate ORM types
 
 ```sh
