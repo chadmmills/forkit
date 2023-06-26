@@ -10,7 +10,9 @@ describe("generate migrations file", () => {
       fakeFile = "fake file";
     };
 
-    call([], {}, { writeFile });
+    let getID = () => "fake-id";
+
+    call(["create_users"], {}, { writeFile, getID });
 
     expect(fakeFile).toBe("fake file");
   });

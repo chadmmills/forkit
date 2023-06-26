@@ -1,14 +1,36 @@
+import { randomUUID } from "node:crypto";
+
 type Config = {
-  writeFile: () => void;
+  writeFile: (path: string, data: string) => void;
+  getID: () => string;
+  logger: (message: string) => void;
 };
 
 export function call(
   inputs: string[],
   _: any,
-  config: Config = { writeFile: () => {} }
+  config: Config = {
+    writeFile: Bun.write,
+    getID: randomUUID,
+    logger: console.info,
+  }
 ) {
-  console.info(`Creating migration '${inputs[0]}'...`);
-  // Create new migrations file with naming convention
-  // uuid_timestamp_migration_name
-  config.writeFile();
+  config.logger(`Creating migration '${inputs[0]}':`);
+
+  const timestamp = Date.now();
+  const uuid = config.getID();
+  const fileName = `${timestamp}_${uuid}_${inputs[0]}.ts`;
+  const path = `api/orm/migrations/files/${fileName}`;
+
+  config.logger(` '${fileName}'`);
+
+  const contents = `export function up(): string {
+  // Put your migration code here.
+}
+
+export function down(): string | void {
+}
+`;
+
+  config.writeFile(path, contents);
 }
