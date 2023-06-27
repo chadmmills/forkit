@@ -12,7 +12,7 @@ describe("generate migrations file", () => {
 
     let getID = () => "fake-id";
 
-    call(["create_users"], {}, { writeFile, getID });
+    call(["create_users"], {}, { writeFile, getID, logger: () => {} });
 
     expect(fakeFile).toBe("fake file");
   });
