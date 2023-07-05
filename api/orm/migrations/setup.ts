@@ -4,7 +4,7 @@ type Tdb = {
   };
 };
 
-export function call<T extends Tdb>(_: any, db: T) {
+export async function call<T extends Tdb>(_: any, db: T) {
   console.info("Setting up database...");
 
   const createQ = db.query(

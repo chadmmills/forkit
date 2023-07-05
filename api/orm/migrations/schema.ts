@@ -1,6 +1,6 @@
 import { Database } from "bun:sqlite";
 
-export function call<T extends Database>(_: any, db: T) {
+export async function call<T extends Database>(_: any, db: T) {
   console.info("Printing out schema...");
 
   const createQ = db.query<{ name: string }, any>(

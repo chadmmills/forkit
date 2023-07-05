@@ -12,7 +12,7 @@ const db = new DB(process.env.NODE_ENV).instance();
 
 type Args = string[];
 
-type CallFn = (inputs: Args, db: Database, config?: any) => void;
+type CallFn = (inputs: Args, db: Database, config?: any) => Promise<void>;
 
 const tasks: { [key: string]: CallFn } = {
   setup,
@@ -29,7 +29,7 @@ const callFn = tasks[task];
 
 if (callFn) {
   console.info("Running forkit CLI command...");
-  callFn(cliArgs, db);
+  await callFn(cliArgs, db);
 } else {
   console.error("No CLI task found!");
 }

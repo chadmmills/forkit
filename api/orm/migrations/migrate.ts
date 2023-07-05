@@ -21,8 +21,8 @@ async function importer(path: string) {
 }
 
 type DB = {
-  query: (sql: string) => {
-    get: <T>(id: string) => T | undefined;
+  query: <T>(sql: string) => {
+    get: (id: string) => T | undefined | null;
   };
   run: (sql: string) => void;
 };
@@ -35,8 +35,8 @@ export async function call<T extends DB>(_: any, db: T, config?: Config) {
 
   for (const filePath of migrationFilePaths) {
     let migrationId = filePath.split("_")[1];
-    let stmt = db.query("SELECT * FROM migrations WHERE id = ?");
-    let result = stmt.get<Migration>(migrationId);
+    let stmt = db.query<Migration>("SELECT * FROM migrations WHERE id = ?");
+    let result = stmt.get(migrationId);
 
     if (!result?.applied_at) {
       const migrateModule = await moduleImport(filePath);

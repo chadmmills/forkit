@@ -6,7 +6,7 @@ type Config = {
   logger: (message: string) => void;
 };
 
-export function call(
+export async function call(
   inputs: string[],
   _: any,
   config: Config = {
