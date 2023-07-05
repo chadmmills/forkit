@@ -3,7 +3,8 @@
     "paths": {
       "api:test": ["./api/test/runner.ts"],
       "api:router": ["./api/router/index.ts"],
-      "api:orm": ["./api/orm/index.ts"]
+      "api:orm": ["./api/orm/index.ts"],
+      "api:lib/*": ["./api/lib/*"]
     },
     // add Bun type definitions
     "types": ["bun-types"],
