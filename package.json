@@ -4,13 +4,15 @@
     "db:migrate": "bun run api/orm/cli.ts -- --task=migrate",
     "db:gen:migration": "bun run api/orm/cli.ts -- --task=generate",
     "db:gen:types": "bun run api/orm/cli.ts -- --task=generateTypes",
-    "db:schema": "bun run api/orm/cli.ts -- --task=schema"
+    "db:schema": "bun run api/orm/cli.ts -- --task=schema",
+    "fmt:check": "prettier --check .",
   },
   "dependencies": {
     "typescript": "^5.0.4",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "bun-types": "^0.6.8"
+    "bun-types": "^0.6.8",
+    "prettier": "^3.0.0"
   }
 }
