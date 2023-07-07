@@ -5,7 +5,7 @@
     "db:gen:migration": "bun run api/orm/cli.ts -- --task=generate",
     "db:gen:types": "bun run api/orm/cli.ts -- --task=generateTypes",
     "db:schema": "bun run api/orm/cli.ts -- --task=schema",
-    "fmt:check": "prettier --check .",
+    "fmt:check": "prettier --check ."
   },
   "dependencies": {
     "typescript": "^5.0.4",
