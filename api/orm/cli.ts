@@ -3,6 +3,7 @@ import { Database } from "bun:sqlite";
 import { call as setup } from "./migrations/setup.ts";
 import { call as schema } from "./migrations/schema.ts";
 import { call as migrate } from "./migrations/migrate.ts";
+import { call as migrateList } from "./migrations/migrate-list.ts";
 import { call as generate } from "./migrations/generate.ts";
 import { call as generateTypes } from "./gen-types.ts";
 
@@ -18,6 +19,7 @@ const tasks: { [key: string]: CallFn } = {
   setup,
   schema,
   migrate,
+  migrateList,
   generate,
   generateTypes,
 };

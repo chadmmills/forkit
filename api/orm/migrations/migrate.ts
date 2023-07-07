@@ -1,15 +1,12 @@
 import { getFilesFromDirectory } from "api:lib/get-files-from-directory";
-
-type Migration = {
-  id: string;
-  applied_at: number;
-};
+import type { Migration } from "./";
 
 type Config = {
   getMigrationFiles: () => string[];
   moduleImport: (
     path: string,
   ) => Promise<{ up: () => string; down?: () => string }>;
+  logger?: (msg: string) => void;
 };
 
 function getFiles(): string[] {
@@ -17,7 +14,8 @@ function getFiles(): string[] {
 }
 
 async function importer(path: string) {
-  return await import(path);
+  console.log("cwd", process.cwd());
+  return await import(process.cwd() + "/" + path);
 }
 
 type DB = {
@@ -28,8 +26,11 @@ type DB = {
 };
 
 export async function call<T extends DB>(_: any, db: T, config?: Config) {
-  const { getMigrationFiles = getFiles, moduleImport = importer } =
-    config || {};
+  const {
+    getMigrationFiles = getFiles,
+    moduleImport = importer,
+    logger = console.log,
+  } = config || {};
 
   const migrationFilePaths = getMigrationFiles();
 
@@ -53,6 +54,8 @@ export async function call<T extends DB>(_: any, db: T, config?: Config) {
             `INSERT INTO migrations (id, applied_at) VALUES ('${uuid}', ${time})`,
           );
         }
+
+        logger(`Migration successful - ${filePath}`);
       } catch (e) {
         console.error("Unable to run migration for ", filePath, e);
       }

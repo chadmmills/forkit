@@ -25,7 +25,11 @@ describe("migrate", () => {
 
     let files = ["1234_users.ts"];
 
-    call([], db, { getMigrationFiles: () => files, moduleImport });
+    call([], db, {
+      getMigrationFiles: () => files,
+      moduleImport,
+      logger: () => {},
+    });
 
     expect(calls.moduleImport).toBe(0);
   });
@@ -54,7 +58,11 @@ describe("migrate", () => {
 
     let files = ["1234_users.ts"];
 
-    await call([], db, { getMigrationFiles: () => files, moduleImport });
+    await call([], db, {
+      getMigrationFiles: () => files,
+      moduleImport,
+      logger: () => {},
+    });
 
     expect(calls.moduleImport).toBe(1);
     expect(runCallArgs[0]).toMatch(/CREATE TABLE users/);
@@ -83,7 +91,11 @@ describe("migrate", () => {
 
     let files = ["time_1234_users.ts"];
 
-    await call([], db, { getMigrationFiles: () => files, moduleImport });
+    await call([], db, {
+      getMigrationFiles: () => files,
+      moduleImport,
+      logger: () => {},
+    });
 
     expect(runCallArgs[1]).toMatch(/UPDATE migrations SET applied_at = \d+/);
   });
