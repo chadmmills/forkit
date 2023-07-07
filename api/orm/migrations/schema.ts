@@ -6,7 +6,7 @@ export async function call<T extends Database>(_: any, db: T) {
   const createQ = db.query<{ name: string }, any>(
     `SELECT name, sql
     FROM sqlite_schema
-    WHERE type = 'table';`
+    WHERE type = 'table';`,
   );
 
   const result = createQ.all();
@@ -30,7 +30,7 @@ export async function call<T extends Database>(_: any, db: T) {
       console.info(
         `  ${tableInfoRow.name} (${tableInfoRow.type}) ${
           tableInfoRow.pk === 1 ? "*" : ""
-        }`
+        }`,
       );
     }
   }

@@ -13,7 +13,7 @@ export async function call(
     writeFile: Bun.write,
     getID: randomUUID,
     logger: console.info,
-  }
+  },
 ) {
   config.logger(`Creating migration '${inputs[0]}':`);
 

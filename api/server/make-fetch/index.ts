@@ -20,7 +20,7 @@ type Config = {
 export function makeFetch(
   router: Routable,
   orm: ORM,
-  config: Config = { getParams: getParamsFromPath, makeResponse }
+  config: Config = { getParams: getParamsFromPath, makeResponse },
 ) {
   return async (req: Request) => {
     const maybeRoute = router.find(req);
@@ -52,7 +52,7 @@ export function makeFetch(
 
       const params = config.getParams(
         new URL(req.url).pathname,
-        maybeRoute.path
+        maybeRoute.path,
       );
 
       let payload;
@@ -62,7 +62,7 @@ export function makeFetch(
           chunks.push(chunk);
         }
         const concatenatedChunks = new Uint8Array(
-          chunks.reduce((acc, chunk) => acc + chunk.length, 0)
+          chunks.reduce((acc, chunk) => acc + chunk.length, 0),
         );
 
         let offset = 0;

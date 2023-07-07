@@ -17,7 +17,7 @@ describe("url-to-file-path-matcher", () => {
 
   test("should match nested param to file path", () => {
     expect(urlPathToFilePathMatcher("/foo/bar/baz", "/foo/$id/baz.ts")).toBe(
-      true
+      true,
     );
   });
 

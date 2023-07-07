@@ -8,7 +8,7 @@ type Migration = {
 type Config = {
   getMigrationFiles: () => string[];
   moduleImport: (
-    path: string
+    path: string,
   ) => Promise<{ up: () => string; down?: () => string }>;
 };
 
@@ -46,11 +46,11 @@ export async function call<T extends DB>(_: any, db: T, config?: Config) {
         let uuid = migrationId;
         if (result?.id) {
           db.run(
-            `UPDATE migrations SET applied_at = ${time} WHERE id = '${uuid}'`
+            `UPDATE migrations SET applied_at = ${time} WHERE id = '${uuid}'`,
           );
         } else {
           db.run(
-            `INSERT INTO migrations (id, applied_at) VALUES ('${uuid}', ${time})`
+            `INSERT INTO migrations (id, applied_at) VALUES ('${uuid}', ${time})`,
           );
         }
       } catch (e) {

@@ -11,7 +11,7 @@ export async function call<T extends Tdb>(_: any, db: T) {
     `CREATE TABLE IF NOT EXISTS migrations (
       id STRING PRIMARY KEY,
       applied_at INTEGER NOT NULL
-    )`
+    )`,
   );
 
   createQ.run();

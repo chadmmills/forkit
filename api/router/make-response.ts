@@ -1,5 +1,5 @@
 export function makeResponse(
-  responseLike: Response | string | { json: Record<string, any> }
+  responseLike: Response | string | { json: Record<string, any> },
 ) {
   if (typeof responseLike === "string") {
     return new Response(responseLike);

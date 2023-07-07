@@ -1,6 +1,6 @@
 export function urlPathToFilePathMatcher(
   urlPath: string,
-  filePath: string
+  filePath: string,
 ): boolean {
   const urlPathParts = urlPath.split("/");
   const filePathParts = filePath.split("/");

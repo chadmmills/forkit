@@ -7,7 +7,7 @@ type RouteHandlerMapConfig = {
 
 function validateRouteHandler<T>(
   path: string,
-  handler: unknown
+  handler: unknown,
 ): RouteHandlerModule<T> {
   if (!handler) {
     throw new Error(`${path} Route handler is undefined`);
@@ -23,7 +23,7 @@ function validateRouteHandler<T>(
       !handlerObject.delete
     ) {
       throw new Error(
-        `${path} - Route handler is an object, but does not have a get, post, patch, put, or delete method`
+        `${path} - Route handler is an object, but does not have a get, post, patch, put, or delete method`,
       );
     }
 
@@ -39,7 +39,7 @@ export async function mapRouteHandlersToFilePaths<T>(
   config: RouteHandlerMapConfig = {
     importRouteModule: async (path: string) => await import(path),
     validate: validateRouteHandler,
-  }
+  },
 ): Promise<RouteHandlerMap<T>> {
   let fileMap = new Map<string, RouteHandlerModule<T>>();
 
@@ -47,11 +47,11 @@ export async function mapRouteHandlersToFilePaths<T>(
     paths.map(async (path) => {
       const handler = config.validate(
         path,
-        await config.importRouteModule(path)
+        await config.importRouteModule(path),
       );
       const route = path.replace(basePath, "").replace(".ts", "");
       fileMap.set(route, handler);
-    })
+    }),
   );
 
   return fileMap;

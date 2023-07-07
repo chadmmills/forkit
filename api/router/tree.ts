@@ -13,7 +13,7 @@ export class RouterTree<T> {
 
   constructor(
     handlerMap: HandlerMap<T>,
-    options: RouterTreeOptions = { pathMatcher: urlPathToFilePathMatcher }
+    options: RouterTreeOptions = { pathMatcher: urlPathToFilePathMatcher },
   ) {
     this.handlerMap = handlerMap;
     this.pathMatcher = options.pathMatcher;

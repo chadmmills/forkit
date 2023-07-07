@@ -28,7 +28,7 @@ function getFileLikes(path: string): FileLike[] {
 
 export function getFilesFromDirectory(
   path: string,
-  readdirFn: ReaddirFn = getFileLikes
+  readdirFn: ReaddirFn = getFileLikes,
 ): string[] {
   return readdirFn(path).map((file) => file.path);
 }

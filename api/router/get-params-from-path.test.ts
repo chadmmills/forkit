@@ -13,7 +13,7 @@ describe("getParamsFromPath", () => {
 
   test("should return object with params based on path", () => {
     expect(
-      getParamsFromPath("/foo/bar/lax/got", "/foo/$id/lax/$name.ts")
+      getParamsFromPath("/foo/bar/lax/got", "/foo/$id/lax/$name.ts"),
     ).toEqual({ id: "bar", name: "got" });
   });
 });

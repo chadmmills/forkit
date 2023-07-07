@@ -14,7 +14,7 @@ const BASE_ROUTE_PATH = process.cwd() + "/api/routes";
 
 const fileMap = await mapRouteHandlersToFilePaths(
   BASE_ROUTE_PATH,
-  getFilesFromDirectory(BASE_ROUTE_PATH)
+  getFilesFromDirectory(BASE_ROUTE_PATH),
 );
 
 const tree = new RouterTree<RouteHandlerModule<ORM>>(fileMap);
