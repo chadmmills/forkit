@@ -34,8 +34,10 @@ bun db:migrate
 Create new migration
 
 ```sh
-bun db:gen:migration
+bun db:gen:migration name_of_migration
 ```
+
+Which will generate a migration file like `1688735559059_3a759e99-29cf-76df-a6fc-161db35d302a_name_of_migration.ts` which is representative of the format `[timestamp]_[uuid]_name_of_migration.ts`
 
 View database schema
 
