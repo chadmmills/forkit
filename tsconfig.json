@@ -4,7 +4,8 @@
       "api:test": ["./api/test/runner.ts"],
       "api:router": ["./api/router/index.ts"],
       "api:orm": ["./api/orm/index.ts"],
-      "api:lib/*": ["./api/lib/*"]
+      "api:lib/*": ["./api/lib/*"],
+      "api/*": ["./api/*"]
     },
     // add Bun type definitions
     "types": ["bun-types"],
