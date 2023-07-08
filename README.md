@@ -58,10 +58,12 @@ bun db:gen:types
 ```
 
 ##To Dos
-- [ ] file based router
-- [ ] print out db schema 
-- [ ] sqlite migrations up
-- [ ] sqlite migrations down
-- [ ] adding password to users
+
+- [x] file based router
+- [x] print out db schema
+- [x] sqlite migrations up
+- [x] sqlite migrations down
+- [x] adding password to users
+- [ ] gen ORM types from schema
 - [ ] user sessions with jwt token
 - [ ] authorization of router endpoints
