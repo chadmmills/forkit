@@ -1,6 +1,8 @@
 {
   "scripts": {
     "db:setup": "bun run api/orm/cli.ts -- --task=setup",
+    "db:reset": "bun run api/orm/cli.ts -- --task=reset && bun db:setup",
+    "db:rebuild": "bun db:reset && bun db:migrate",
     "db:migrate": "bun run api/orm/cli.ts -- --task=migrate",
     "db:migration:down": "bun run api/orm/cli.ts -- --task=migrateDown",
     "db:migrate:list": "bun run api/orm/cli.ts -- --task=migrateList",

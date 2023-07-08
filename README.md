@@ -51,6 +51,18 @@ View database schema
 bun db:schema
 ```
 
+**Reset Database**
+Delete & create new database
+```sh
+bun db:reset
+```
+
+Delete, create new database and run migrations
+```sh
+bun db:rebuild
+```
+
+**ORM**
 Generate ORM types
 
 ```sh
