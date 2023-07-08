@@ -9,7 +9,7 @@ export async function call<T extends Tdb>(_: any, db: T) {
 
   const createQ = db.query(
     `CREATE TABLE IF NOT EXISTS migrations (
-      id STRING PRIMARY KEY,
+      id TEXT PRIMARY KEY,
       applied_at INTEGER NOT NULL
     )`,
   );

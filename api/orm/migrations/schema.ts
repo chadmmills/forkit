@@ -29,7 +29,7 @@ export async function call<T extends Database>(_: any, db: T) {
     for (const tableInfoRow of tableInfoQ) {
       console.info(
         `  ${tableInfoRow.name} (${tableInfoRow.type}) ${
-          tableInfoRow.pk === 1 ? "*" : ""
+          tableInfoRow.pk === 1 ? "pk" : tableInfoRow.notnull === 1 ? "*" : ""
         }`,
       );
     }
