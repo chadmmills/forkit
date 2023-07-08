@@ -31,6 +31,12 @@ Run existing migrations
 bun db:migrate
 ```
 
+Undo last migration
+
+```sh
+bun db:migrate:down
+```
+
 Create new migration
 
 ```sh

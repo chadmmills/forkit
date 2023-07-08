@@ -11,9 +11,8 @@ describe("migrate", () => {
     let db = {
       query: () => ({
         get: (): any => {},
+        run: () => {},
       }),
-      run: () => {},
-      exec: () => {},
     };
 
     let moduleImport = async () => ({
@@ -41,12 +40,12 @@ describe("migrate", () => {
     };
 
     let db = {
-      query: () => ({
+      query: (sql: string) => ({
         get: (_: string): any => undefined,
+        run: () => {
+          runCallArgs.push(sql);
+        },
       }),
-      run: (stmt: string) => {
-        runCallArgs.push(stmt);
-      },
     };
 
     let moduleImport = async () => ({
@@ -73,14 +72,14 @@ describe("migrate", () => {
     let runCallArgs: string[] = [];
 
     let db = {
-      query: () => ({
+      query: (sql: string) => ({
         get: (_: string): any => ({
           id: "1234",
         }),
+        run: () => {
+          runCallArgs.push(sql);
+        },
       }),
-      run: (stmt: string) => {
-        runCallArgs.push(stmt);
-      },
     };
 
     let moduleImport = async () => ({
