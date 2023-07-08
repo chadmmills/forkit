@@ -1,4 +1,3 @@
-
 import { expect, describe, test } from "bun:test";
 
 import { call } from "./migrate-down.ts";
@@ -12,16 +11,15 @@ describe("migrate", () => {
     let db = {
       query: () => ({
         get: (): any => {},
+        run: () => {},
       }),
-      run: () => {},
-      exec: () => {},
     };
 
     let moduleImport = async () => ({
       down: () => {
         calls.moduleImport++;
         return "DROP TABLE users";
-      }
+      },
     });
 
     let files = ["1234_users.ts"];
