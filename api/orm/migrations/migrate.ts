@@ -32,7 +32,7 @@ export async function call<T extends DB>(_: any, db: T, config?: Config) {
     logger = console.log,
   } = config || {};
 
-  const migrationFilePaths = getMigrationFiles();
+  const migrationFilePaths = getMigrationFiles().sort();
 
   for (const filePath of migrationFilePaths) {
     let migrationId = filePath.split("_")[1];
