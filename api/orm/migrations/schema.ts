@@ -1,35 +1,24 @@
 import { Database } from "bun:sqlite";
 
-export async function call<T extends Database>(_: any, db: T) {
+import getSchema from "../get-schema";
+
+type Config = {
+  getSchemaFromDb: typeof getSchema;
+};
+
+export async function call<T extends Database>(_: any, db: T, config?: Config) {
+  const { getSchemaFromDb = getSchema } = config || {};
+
   console.info("Printing out schema...");
 
-  const createQ = db.query<{ name: string }, any>(
-    `SELECT name, sql
-    FROM sqlite_schema
-    WHERE type = 'table';`,
-  );
+  const tables = getSchemaFromDb(db).tables;
 
-  const result = createQ.all();
-
-  for (const table of result) {
-    const tableInfoQ = db
-      .query<
-        {
-          name: string;
-          type: string;
-          notnull: number;
-          dflt_value: string | null;
-          pk: number;
-        },
-        any
-      >(`PRAGMA table_info(${table.name});`)
-      .all();
-
+  for (const table of tables) {
     console.info(`\nTable: ${table.name}`);
-    for (const tableInfoRow of tableInfoQ) {
+    for (const tableInfoRow of table.columns) {
       console.info(
         `  ${tableInfoRow.name} (${tableInfoRow.type}) ${
-          tableInfoRow.pk === 1 ? "pk" : tableInfoRow.notnull === 1 ? "*" : ""
+          tableInfoRow.isPrimaryKey ? "pk" : tableInfoRow.isNullable ? "" : "*"
         }`,
       );
     }
