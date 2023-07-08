@@ -50,3 +50,12 @@ Generate ORM types
 ```sh
 bun db:gen:types
 ```
+
+##To Dos
+- [ ] file based router
+- [ ] print out db schema 
+- [ ] sqlite migrations up
+- [ ] sqlite migrations down
+- [ ] adding password to users
+- [ ] user sessions with jwt token
+- [ ] authorization of router endpoints
