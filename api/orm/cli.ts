@@ -15,7 +15,11 @@ const db = new DB(process.env.NODE_ENV).instance();
 
 type Args = string[];
 
-type CallFn = (inputs: Args, db: Database, config?: any) => Promise<void>;
+export type CallFn = (
+  inputs: Args,
+  db: Database,
+  config?: any,
+) => Promise<void>;
 
 const tasks: { [key: string]: CallFn } = {
   setup,

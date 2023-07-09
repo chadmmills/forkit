@@ -14,7 +14,6 @@ function getFiles(): string[] {
 }
 
 async function importer(path: string) {
-  console.log("cwd", process.cwd());
   return await import(process.cwd() + "/" + path);
 }
 
