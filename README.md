@@ -78,6 +78,7 @@ bun db:gen:types
 - [x] sqlite migrations up
 - [x] sqlite migrations down
 - [x] adding password to users
+- [x] add reset and rebuild db commands
 - [ ] gen ORM types from schema
 - [ ] user sessions with jwt token
 - [ ] authorization of router endpoints
