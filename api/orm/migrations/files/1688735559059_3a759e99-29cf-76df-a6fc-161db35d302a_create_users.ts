@@ -1,7 +1,7 @@
 export function up(): string {
   return `
     CREATE TABLE users (
-      id text PRIMARY KEY,
+      id text PRIMARY KEY NOT NULL,
       email text NOT NULL UNIQUE
     );
     `;

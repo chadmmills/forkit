@@ -4,7 +4,7 @@ type DB = {
   };
 };
 
-type Schema = {
+export type Schema = {
   tables: Table[];
 };
 
