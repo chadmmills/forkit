@@ -48,7 +48,7 @@ export async function call(_: any, db: any, config?: Config) {
 
   for (let dbType of dbTypes) {
     fileConentLines.push(`${dbType.name}: {`);
-    fileConentLines.push(`all: async () => {`);
+    fileConentLines.push(`all() {`);
     fileConentLines.push(
       `return db.query<${dbType.name}, any>(\`SELECT * FROM ${dbType.dbTable.name}\`).all()`,
     );

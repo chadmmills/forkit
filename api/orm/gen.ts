@@ -15,12 +15,12 @@ export type User = {
 
 export const orm = {
   Migration: {
-    all: async () => {
+    all() {
       return db.query<Migration, any>(`SELECT * FROM migrations`).all();
     },
   },
   User: {
-    all: async () => {
+    all() {
       return db.query<User, any>(`SELECT * FROM users`).all();
     },
   },
