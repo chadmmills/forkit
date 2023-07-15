@@ -20,7 +20,7 @@ describe("db-schema-to-js-types", () => {
       ],
     };
 
-    expect(dbSchemaToJSTypes(schema)).toEqual([
+    expect(dbSchemaToJSTypes(schema)).toMatchObject([
       {
         name: "User",
         fields: [

@@ -18,12 +18,20 @@ async function fileWriter(path: string, content: string) {
 export async function call(_: any, db: any, config?: Config) {
   const { getSchemaFromDb = getSchema, writeToFile = fileWriter } =
     config || {};
-  console.info("Call from gen-types.ts");
+  console.info("Generating ts types from db schema... gem.ts");
 
-  let dbSchema = dbSchemaToJSTypes(getSchemaFromDb(db));
+  let dbSchema = getSchemaFromDb(db);
+  let dbTypes = dbSchemaToJSTypes(dbSchema);
 
-  let fileConentLines = [""];
-  for (let table of dbSchema) {
+  let fileConentLines = [
+    `import { DB } from "./db.ts"`,
+    "",
+    "const db = new DB(process.env.NODE_ENV).instance()",
+    "",
+  ];
+
+  // Generate Types
+  for (let table of dbTypes) {
     fileConentLines.push(`export type ${table.name} = {`);
 
     for (let column of table.fields) {
@@ -34,6 +42,23 @@ export async function call(_: any, db: any, config?: Config) {
 
     fileConentLines.push("}\n");
   }
+
+  // Generate orm
+  fileConentLines.push("export const orm = {");
+
+  for (let dbType of dbTypes) {
+    fileConentLines.push(`${dbType.name}: {`);
+    fileConentLines.push(`all: async () => {`);
+    fileConentLines.push(
+      `return db.query<${dbType.name}, any>(\`SELECT * FROM ${dbType.dbTable.name}\`).all()`,
+    );
+    fileConentLines.push("},");
+    fileConentLines.push("},");
+  }
+
+  fileConentLines.push("}\n");
+
+  fileConentLines.push("export type ORM = typeof orm");
 
   writeToFile("api/orm/gen.ts", fileConentLines.join("\n"));
 }

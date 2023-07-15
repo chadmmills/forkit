@@ -8,7 +8,7 @@ export type Schema = {
   tables: Table[];
 };
 
-type Table = {
+export type Table = {
   name: string;
   columns: Column[];
 };

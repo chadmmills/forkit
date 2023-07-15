@@ -1,8 +1,9 @@
-import { Schema } from "./get-schema.ts";
+import { Schema, Table } from "./get-schema.ts";
 
 type JSType = {
   name: string;
   fields: JSField[];
+  dbTable: Table;
 };
 
 type JSField = {
@@ -40,6 +41,8 @@ function toJSType(sqlType: string): string {
 
 export default function dbSchemaToJSTypes(schema: Schema): JSType[] {
   return schema.tables.map((table) => ({
+    // Keep reference to the db table data
+    dbTable: table,
     name: capitalize(sigularize(table.name)),
     fields: table.columns.map((column) => ({
       name: column.name,
