@@ -4,6 +4,10 @@ import getSchema from "./get-schema.ts";
 type Config = {
   getSchemaFromDb: typeof getSchema;
   writeToFile: (path: string, content: string) => void;
+  ormMethodsFromTemplate?: (dbType: {
+    name: string;
+    dbTable: { name: string };
+  }) => string;
 };
 
 async function fileWriter(path: string, content: string) {
@@ -15,9 +19,31 @@ async function fileWriter(path: string, content: string) {
   Bun.write(path, result);
 }
 
+function makeORMMethodsFromTemplate(dbType: {
+  name: string;
+  dbTable: { name: string };
+}) {
+  return `
+{{typeName}}: {
+  all() {
+    return db.query<{{typeName}}, any>("SELECT * FROM {{tableName}}").all();
+  },
+  create(data: ToOptional<{{typeName}}>) {
+    return db.query<{{typeName}}, any>(
+      \`INSERT INTO {{tableName}} (\${Object.keys(data).join(", ")}) VALUES (\${Object.keys(data).map((k) => "$" + k).join(", ")})\`
+    ).run(data);
+  },
+},`
+    .replace(/{{typeName}}/g, dbType.name)
+    .replace(/{{tableName}}/g, dbType.dbTable.name);
+}
+
 export async function call(_: any, db: any, config?: Config) {
-  const { getSchemaFromDb = getSchema, writeToFile = fileWriter } =
-    config || {};
+  const {
+    getSchemaFromDb = getSchema,
+    writeToFile = fileWriter,
+    ormMethodsFromTemplate = makeORMMethodsFromTemplate,
+  } = config || {};
   console.info("Generating ts types from db schema... gem.ts");
 
   let dbSchema = getSchemaFromDb(db);
@@ -27,6 +53,10 @@ export async function call(_: any, db: any, config?: Config) {
     `import { DB } from "./db.ts"`,
     "",
     "const db = new DB(process.env.NODE_ENV).instance()",
+    "",
+    `type ToOptional<T> = {
+    [K in keyof T]-?: T[K] extends null | undefined ? T[K] | undefined : T[K];
+  };`,
     "",
   ];
 
@@ -47,18 +77,20 @@ export async function call(_: any, db: any, config?: Config) {
   fileConentLines.push("export const orm = {");
 
   for (let dbType of dbTypes) {
-    fileConentLines.push(`${dbType.name}: {`);
-    fileConentLines.push(`all() {`);
-    fileConentLines.push(
-      `return db.query<${dbType.name}, any>(\`SELECT * FROM ${dbType.dbTable.name}\`).all()`,
-    );
-    fileConentLines.push("},");
-    fileConentLines.push("},");
+    fileConentLines.push(ormMethodsFromTemplate(dbType));
+    // fileConentLines.push(`${dbType.name}: {`);
+    // fileConentLines.push(`all() {`);
+    // fileConentLines.push(
+    //   `return db.query<${dbType.name}, any>(\`SELECT * FROM ${dbType.dbTable.name}\`).all()`,
+    // );
+    // fileConentLines.push("},");
+    // fileConentLines.push("},");
+    // }
   }
 
   fileConentLines.push("}\n");
 
   fileConentLines.push("export type ORM = typeof orm");
 
-  writeToFile("api/orm/gen.ts", fileConentLines.join("\n"));
+  await writeToFile("api/orm/gen.ts", fileConentLines.join("\n"));
 }
