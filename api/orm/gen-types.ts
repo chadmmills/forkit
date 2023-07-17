@@ -24,7 +24,7 @@ function makeORMMethodsFromTemplate(dbType: {
   dbTable: { name: string };
 }) {
   return `
-{{typeName}}: {
+{{tableName}}: {
   all() {
     return db.query<{{typeName}}, any>("SELECT * FROM {{tableName}}").all();
   },

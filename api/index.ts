@@ -1,4 +1,4 @@
-type ORM = {};
+import type { ORM } from "api:orm";
 
 import type { RouteHandlerArgs, RouteHandlerReturn } from "api:router";
 

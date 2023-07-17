@@ -18,7 +18,7 @@ export type User = {
 };
 
 export const orm = {
-  Migration: {
+  migrations: {
     all() {
       return db.query<Migration, any>("SELECT * FROM migrations").all();
     },
@@ -35,7 +35,7 @@ export const orm = {
     },
   },
 
-  User: {
+  users: {
     all() {
       return db.query<User, any>("SELECT * FROM users").all();
     },
