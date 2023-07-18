@@ -1,5 +1,5 @@
 type Params = Record<string, string>;
-export type RespondWithArgs = Response | string | { json: Record<string, any> };
+export type RespondWithArgs = Response | string | { json?: Record<string, any>; html?: string };
 type RespondWith = (response: RespondWithArgs) => Response;
 export type RouteHandlerArgs<T> = {
   req: Request;

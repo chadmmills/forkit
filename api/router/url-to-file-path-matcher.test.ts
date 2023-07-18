@@ -7,6 +7,10 @@ describe("url-to-file-path-matcher", () => {
     expect(urlPathToFilePathMatcher("/boo", "/boo.ts")).toBe(true);
   });
 
+  test("should match index routes", () => {
+    expect(urlPathToFilePathMatcher("/users", "/users/index.ts")).toBe(true);
+  });
+
   test("should match root to index.ts", () => {
     expect(urlPathToFilePathMatcher("/", "/index.ts")).toBe(true);
   });
