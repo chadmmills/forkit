@@ -4,28 +4,28 @@ import { urlPathToFilePathMatcher } from "./url-to-file-path-matcher";
 
 describe("url-to-file-path-matcher", () => {
   test("exact path to exact path", () => {
-    expect(urlPathToFilePathMatcher("/boo", "/boo.ts")).toBe(true);
+    expect(urlPathToFilePathMatcher("/boo", "/boo")).toBe(true);
   });
 
   test("should match index routes", () => {
-    expect(urlPathToFilePathMatcher("/users", "/users/index.ts")).toBe(true);
+    expect(urlPathToFilePathMatcher("/users", "/users/index")).toBe(true);
   });
 
   test("should match root to index.ts", () => {
-    expect(urlPathToFilePathMatcher("/", "/index.ts")).toBe(true);
+    expect(urlPathToFilePathMatcher("/", "/index")).toBe(true);
   });
 
   test("should match param to file path", () => {
-    expect(urlPathToFilePathMatcher("/foo/bar", "/foo/$id.ts")).toBe(true);
+    expect(urlPathToFilePathMatcher("/foo/bar", "/foo/$id")).toBe(true);
   });
 
   test("should match nested param to file path", () => {
-    expect(urlPathToFilePathMatcher("/foo/bar/baz", "/foo/$id/baz.ts")).toBe(
+    expect(urlPathToFilePathMatcher("/foo/bar/baz", "/foo/$id/baz")).toBe(
       true,
     );
   });
 
   test("should not match nested file path", () => {
-    expect(urlPathToFilePathMatcher("/foo/bar", "/foo/bee.ts")).toBe(false);
+    expect(urlPathToFilePathMatcher("/foo/bar", "/foo/bee")).toBe(false);
   });
 });

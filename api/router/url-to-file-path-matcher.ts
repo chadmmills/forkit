@@ -5,7 +5,7 @@ export function urlPathToFilePathMatcher(
   const urlPathParts = urlPath.split("/");
   const filePathParts = filePath.split("/");
 
-  const isLastFilePathAnIndex = filePathParts[filePathParts.length - 1] === "index.ts";
+  const isLastFilePathAnIndex = filePathParts[filePathParts.length - 1] === "index";
 
   if (urlPathParts.length !== filePathParts.length && !isLastFilePathAnIndex) {
     return false;
