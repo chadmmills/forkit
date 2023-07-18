@@ -28,10 +28,15 @@ function makeORMMethodsFromTemplate(dbType: {
   all() {
     return db.query<{{typeName}}, any>("SELECT * FROM {{tableName}}").all();
   },
-  create(data: ToOptional<{{typeName}}>) {
+  create(data: {{typeName}}Input) {
+    const id = randomUUID();
+    const dataWithId: {{typeName}}Input & { id: string } = { ...data, id };
+    const columns = Object.keys(dataWithId).join(", ");
+    const preparedValues = Object.keys(dataWithId).map((k) => "$" + k).join(", ");
+
     return db.query<{{typeName}}, any>(
-      \`INSERT INTO {{tableName}} (\${Object.keys(data).join(", ")}) VALUES (\${Object.keys(data).map((k) => "$" + k).join(", ")})\`
-    ).run(data);
+      \`INSERT INTO {{tableName}} (\${columns}) VALUES (\${preparedValues})\`
+    ).run(dataWithId);
   },
 },`
     .replace(/{{typeName}}/g, dbType.name)
@@ -50,6 +55,8 @@ export async function call(_: any, db: any, config?: Config) {
   let dbTypes = dbSchemaToJSTypes(dbSchema);
 
   let fileConentLines = [
+    'import { randomUUID } from "node:crypto";',
+    "",
     `import { DB } from "./db.ts"`,
     "",
     "const db = new DB(process.env.NODE_ENV).instance()",
@@ -61,16 +68,20 @@ export async function call(_: any, db: any, config?: Config) {
   ];
 
   // Generate Types
-  for (let table of dbTypes) {
-    fileConentLines.push(`export type ${table.name} = {`);
+  for (let dbType of dbTypes) {
+    fileConentLines.push(`export type ${dbType.name} = {`);
 
-    for (let column of table.fields) {
+    for (let column of dbType.fields) {
       fileConentLines.push(
         `${column.name}: ${column.type}${!column.isRequired ? " | null" : ""};`,
       );
     }
 
     fileConentLines.push("}\n");
+
+    fileConentLines.push(
+      `export type ${dbType.name}Input = ToOptional<Omit<${dbType.name}, "id">>\n`,
+    );
   }
 
   // Generate orm
@@ -78,14 +89,6 @@ export async function call(_: any, db: any, config?: Config) {
 
   for (let dbType of dbTypes) {
     fileConentLines.push(ormMethodsFromTemplate(dbType));
-    // fileConentLines.push(`${dbType.name}: {`);
-    // fileConentLines.push(`all() {`);
-    // fileConentLines.push(
-    //   `return db.query<${dbType.name}, any>(\`SELECT * FROM ${dbType.dbTable.name}\`).all()`,
-    // );
-    // fileConentLines.push("},");
-    // fileConentLines.push("},");
-    // }
   }
 
   fileConentLines.push("}\n");
