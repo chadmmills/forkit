@@ -1,8 +1,6 @@
 import { RespondWithArgs } from "./route-handler.ts";
 
-export function makeResponse(
-  responseLike: RespondWithArgs,
-): Response {
+export function makeResponse(responseLike: RespondWithArgs): Response {
   if (typeof responseLike === "string") {
     return new Response(responseLike);
   }

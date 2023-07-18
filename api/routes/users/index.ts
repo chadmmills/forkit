@@ -16,9 +16,9 @@ const html = `
 `;
 
 export function get({ respondWith }: ApiHandlerArgs): ApiHandlerResponse {
-  return respondWith({ html })
+  return respondWith({ html });
 }
 
 export function post({ respondWith }: ApiHandlerArgs): ApiHandlerResponse {
-  return respondWith({ html: "User created" })
+  return respondWith({ html: "User created" });
 }
