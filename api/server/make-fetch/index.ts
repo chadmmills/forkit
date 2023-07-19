@@ -2,6 +2,7 @@
 import type { RespondWithArgs, RouteHandlerModule } from "api:router";
 import { getParamsFromPath } from "../../router/get-params-from-path.ts";
 import { makeResponse } from "../../router/make-response.ts";
+import { ZodError } from "zod";
 
 type Route<ORM> = {
   path: string;
@@ -80,13 +81,26 @@ export function makeFetch<ORM>(
         }
       }
 
-      return handlerFn({
-        req,
-        orm,
-        params,
-        respondWith: config.makeResponse,
-        payload,
-      });
+      try {
+        return handlerFn({
+          req,
+          orm,
+          params,
+          respondWith: config.makeResponse,
+          payload,
+        });
+      } catch (e) {
+        if (e instanceof ZodError) {
+          return new Response(JSON.stringify(e.issues), {
+            status: 400,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+        }
+        console.error(e);
+        return new Response("Internal server error", { status: 500 });
+      }
     }
 
     return new Response("Not found", { status: 404 });

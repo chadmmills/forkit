@@ -33,10 +33,17 @@ function makeORMMethodsFromTemplate(dbType: {
     const dataWithId: {{typeName}}Input & { id: string } = { ...data, id };
     const columns = Object.keys(dataWithId).join(", ");
     const preparedValues = Object.keys(dataWithId).map((k) => "$" + k).join(", ");
+    const preparedValuesObject = Object.keys(dataWithId).reduce(
+      (acc, key) => {
+        acc["$" + key] = dataWithId[key as keyof {{typeName}}];
+        return acc;
+      },
+      {} as Record<string, any>,
+    );
 
     return db.query<{{typeName}}, any>(
       \`INSERT INTO {{tableName}} (\${columns}) VALUES (\${preparedValues})\`
-    ).run(dataWithId);
+    ).run(preparedValuesObject);
   },
 },`
     .replace(/{{typeName}}/g, dbType.name)

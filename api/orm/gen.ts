@@ -35,12 +35,19 @@ export const orm = {
       const preparedValues = Object.keys(dataWithId)
         .map((k) => "$" + k)
         .join(", ");
+      const preparedValuesObject = Object.keys(dataWithId).reduce(
+        (acc, key) => {
+          acc["$" + key] = dataWithId[key as keyof Migration];
+          return acc;
+        },
+        {} as Record<string, any>,
+      );
 
       return db
         .query<Migration, any>(
           `INSERT INTO migrations (${columns}) VALUES (${preparedValues})`,
         )
-        .run(dataWithId);
+        .run(preparedValuesObject);
     },
   },
 
@@ -55,12 +62,19 @@ export const orm = {
       const preparedValues = Object.keys(dataWithId)
         .map((k) => "$" + k)
         .join(", ");
+      const preparedValuesObject = Object.keys(dataWithId).reduce(
+        (acc, key) => {
+          acc["$" + key] = dataWithId[key as keyof User];
+          return acc;
+        },
+        {} as Record<string, any>,
+      );
 
       return db
         .query<User, any>(
           `INSERT INTO users (${columns}) VALUES (${preparedValues})`,
         )
-        .run(dataWithId);
+        .run(preparedValuesObject);
     },
   },
 };
