@@ -1,5 +1,10 @@
 name: forkit CI
 on: [push]
+
+defaults:
+  run:
+    working-directory: ./api
+
 jobs:
   Type-Check:
     runs-on: ubuntu-latest
