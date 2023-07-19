@@ -1,11 +1,12 @@
 {
+  "include": ["web/remix.env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "paths": {
-      "api:test": ["./api/test/runner.ts"],
-      "api:router": ["./api/router/index.ts"],
-      "api:orm": ["./api/orm/index.ts"],
-      "api:lib/*": ["./api/lib/*"],
-      "api/*": ["./api/*"]
+      "api:test": ["./test/runner.ts"],
+      "api:router": ["./router/index.ts"],
+      "api:orm": ["./orm/index.ts"],
+      "api:lib/*": ["./lib/*"],
+      "api/*": ["./*"]
     },
     // add Bun type definitions
     "types": ["bun-types"],
@@ -24,6 +25,6 @@
     // best practices
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   }
 }
