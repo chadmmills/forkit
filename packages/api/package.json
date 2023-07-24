@@ -1,4 +1,5 @@
 {
+  "name": "api",
   "scripts": {
     "db:setup": "bun run api/orm/cli.ts -- --task=setup",
     "db:reset": "bun run api/orm/cli.ts -- --task=reset",

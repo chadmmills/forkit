@@ -11,7 +11,7 @@ import { orm } from "api:orm";
 import type { ORM } from "api:orm";
 import { getFilesFromDirectory } from "../lib/get-files-from-directory";
 
-const BASE_ROUTE_PATH = process.cwd() + "/api/routes";
+const BASE_ROUTE_PATH = process.cwd() + "/routes";
 
 const fileMap = await mapRouteHandlersToFilePaths(
   BASE_ROUTE_PATH,
