@@ -24,7 +24,7 @@ export function urlPathToFilePathMatcher(
       continue;
     }
 
-    if (filePathPart.startsWith("$")) {
+    if (filePathPart.startsWith("$") && urlPathPart !== "") {
       continue;
     }
 

@@ -23,6 +23,10 @@ describe("url-to-file-path-matcher", () => {
     expect(urlPathToFilePathMatcher("/foo/bar/baz", "/foo/$id/baz")).toBe(true);
   });
 
+  test("should require param value to match", () => {
+    expect(urlPathToFilePathMatcher("/foo/", "/foo/$id")).toBe(false);
+  })
+
   test("should not match nested file path", () => {
     expect(urlPathToFilePathMatcher("/foo/bar", "/foo/bee")).toBe(false);
   });
