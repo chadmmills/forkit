@@ -1,0 +1,30 @@
+{
+  "include": [" **/*.ts", "**/*.tsx"],
+  "compilerOptions": {
+    "paths": {
+      "api:test": ["./test/runner.ts"],
+      "api:router": ["./router/index.ts"],
+      "api:orm": ["./orm/index.ts"],
+      "api:lib/*": ["./lib/*"],
+      "api/*": ["./*"]
+    },
+    // add Bun type definitions
+    "types": ["bun-types"],
+
+    // enable latest features
+    "lib": ["esnext"],
+    "module": "esnext",
+    "target": "esnext",
+
+    // if TS 5.x+
+    "noEmit": true,
+    "moduleResolution": "node",
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force",
+
+    // best practices
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  }
+}
