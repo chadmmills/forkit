@@ -1,3 +1,6 @@
 { 
-  "name": "scripts"
+  "name": "scripts",
+  "devDependencies": {
+    "bun-types": "^0.7.0"
+  }
 }
