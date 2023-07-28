@@ -1,5 +1,5 @@
 {
-  "include": ["web/remix.env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [" **/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "paths": {
       "api:test": ["./test/runner.ts"],
