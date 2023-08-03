@@ -1,5 +1,8 @@
 { 
   "name": "scripts",
+  "scripts": {
+    "dev:all": "bun dev.all.ts"
+  },
   "devDependencies": {
     "bun-types": "^0.7.0"
   }
