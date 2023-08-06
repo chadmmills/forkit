@@ -39,3 +39,9 @@ process.on("SIGINT", () => {
   process.exit()
 })
 
+process.on("SIGTERM", () => {
+  console.info("SIGTERM signal received... quitting all processes")
+  procs.forEach(proc => proc.kill())
+  process.exit()
+})
+
