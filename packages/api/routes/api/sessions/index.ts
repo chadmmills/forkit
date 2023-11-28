@@ -11,9 +11,9 @@ export function post({ payload }: ApiHandlerArgs): ApiHandlerResponse {
   // }
 
   return new Response(JSON.stringify({}), {
-                     headers: { "content-type": "application/json" },
-                     status: 400,
-                    })
+    headers: { "content-type": "application/json" },
+    status: 400,
+  });
 }
 
 const sessionPayloadSchema = z.object({
@@ -22,6 +22,9 @@ const sessionPayloadSchema = z.object({
 });
 
 // used to parse the body of a request
-export const payloadParser = (raw: unknown, parser: typeof sessionPayloadSchema = sessionPayloadSchema) => {
+export const payloadParser = (
+  raw: unknown,
+  parser: typeof sessionPayloadSchema = sessionPayloadSchema,
+) => {
   return parser.parse(raw);
 };

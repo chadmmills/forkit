@@ -29,7 +29,6 @@ export default {
   fetch: middlewares(fetch, logRequest),
 } satisfies Serve;
 
-
 type MiddlewareFn = (req: Request, res: Response) => Promise<Response>;
 
 function middlewares(...fns: MiddlewareFn[]) {
@@ -44,7 +43,9 @@ function middlewares(...fns: MiddlewareFn[]) {
 }
 
 function logRequest(req: Request, res: Response): Promise<Response> {
-  console.info(req.method + ": " + new URL(req.url).pathname + " " + res.status);
+  console.info(
+    req.method + ": " + new URL(req.url).pathname + " " + res.status,
+  );
 
   return Promise.resolve(res);
 }

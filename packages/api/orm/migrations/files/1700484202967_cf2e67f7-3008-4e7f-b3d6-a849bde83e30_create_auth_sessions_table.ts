@@ -6,9 +6,9 @@ export function up(): string {
     expires_at timestamp NOT NULL,
     created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
-  );`
+  );`;
 }
 
 export function down(): string | void {
-  return 'DROP TABLE auth_sessions'
+  return "DROP TABLE auth_sessions";
 }
