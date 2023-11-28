@@ -24,7 +24,6 @@ export function makeFetch<ORM>(
   config: Config = { getParams: getParamsFromPath, makeResponse },
 ) {
   return async (req: Request) => {
-    console.info(req.method + ": " + new URL(req.url).pathname);
     const maybeRoute = router.find(req);
     if (maybeRoute) {
       // handler({ req, db, json() {}, setHeader() {}, setStatus() {} }) // or something

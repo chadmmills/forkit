@@ -20,7 +20,7 @@ export async function call(
   const timestamp = Date.now();
   const uuid = config.getID();
   const fileName = `${timestamp}_${uuid}_${inputs[0]}.ts`;
-  const path = `api/orm/migrations/files/${fileName}`;
+  const path = `orm/migrations/files/${fileName}`;
 
   config.logger(` '${fileName}'`);
 

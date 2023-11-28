@@ -1,15 +1,15 @@
 {
   "name": "api",
   "scripts": {
-    "db:setup": "bun run api/orm/cli.ts -- --task=setup",
-    "db:reset": "bun run api/orm/cli.ts -- --task=reset",
+    "db:setup": "bun run orm/cli.ts -- --task=setup",
+    "db:reset": "bun run orm/cli.ts -- --task=reset",
     "db:rebuild": "bun db:reset && bun db:migrate",
-    "db:migrate": "bun run api/orm/cli.ts -- --task=migrate",
-    "db:migration:down": "bun run api/orm/cli.ts -- --task=migrateDown",
-    "db:migrate:list": "bun run api/orm/cli.ts -- --task=migrateList",
-    "db:gen:migration": "bun run api/orm/cli.ts -- --task=generate",
-    "db:gen:types": "bun run api/orm/cli.ts -- --task=generateTypes",
-    "db:schema": "bun run api/orm/cli.ts -- --task=schema",
+    "db:migrate": "bun run orm/cli.ts -- --task=migrate",
+    "db:migration:down": "bun run orm/cli.ts -- --task=migrateDown",
+    "db:migrate:list": "bun run orm/cli.ts -- --task=migrateList",
+    "db:gen:migration": "bun run orm/cli.ts -- --task=generate",
+    "db:gen:types": "bun run orm/cli.ts -- --task=generateTypes",
+    "db:schema": "bun run orm/cli.ts -- --task=schema",
     "fmt:check": "prettier --check ."
   },
   "dependencies": {

@@ -8,7 +8,7 @@ type Config = {
 };
 
 function getFiles(): string[] {
-  return getFilesFromDirectory("api/orm/migrations/files");
+  return getFilesFromDirectory("orm/migrations/files");
 }
 
 async function importer(path: string): Promise<{ down?: () => string }> {

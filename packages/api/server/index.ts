@@ -26,5 +26,25 @@ const fetch = makeFetch(router, orm);
 
 export default {
   port: 3008,
-  fetch,
+  fetch: middlewares(fetch, logRequest),
 } satisfies Serve;
+
+
+type MiddlewareFn = (req: Request, res: Response) => Promise<Response>;
+
+function middlewares(...fns: MiddlewareFn[]) {
+  return async function (req: Request): Promise<Response> {
+    let current: Response = new Response(null, { status: 404 });
+    for (let fn of fns) {
+      current = await fn(req, current);
+    }
+
+    return current;
+  };
+}
+
+function logRequest(req: Request, res: Response): Promise<Response> {
+  console.info(req.method + ": " + new URL(req.url).pathname + " " + res.status);
+
+  return Promise.resolve(res);
+}

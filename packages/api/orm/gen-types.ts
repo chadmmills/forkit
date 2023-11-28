@@ -102,5 +102,5 @@ export async function call(_: any, db: any, config?: Config) {
 
   fileConentLines.push("export type ORM = typeof orm");
 
-  await writeToFile("api/orm/gen.ts", fileConentLines.join("\n"));
+  await writeToFile("orm/gen.ts", fileConentLines.join("\n"));
 }
