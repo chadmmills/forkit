@@ -3,12 +3,12 @@ import { z } from "zod";
 import type { ApiHandlerArgs, ApiHandlerResponse } from "api/index.ts";
 
 export function post({ payload }: ApiHandlerArgs): ApiHandlerResponse {
-  let body = payloadParser(payload);
-  let session = AuthSession.create(body);
+  // let body = payloadParser(payload);
+  // let session = AuthSession.create(body);
 
-  if (session.ok) {
-    throw new Response("", { status: 404 });
-  }
+  // if (session.ok) {
+  //   throw new Response("", { status: 404 });
+  // }
 
   return new Response(JSON.stringify({}), {
                      headers: { "content-type": "application/json" },
